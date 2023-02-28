@@ -102,16 +102,14 @@ public class Main {
 
             } else if (opcion == 9) { //Cantidad de productos por cada venta
                 GestionDetalleVentas detalleVentas = new GestionDetalleVentas();
-                ArrayList<detalle_ventas> resultado = new ArrayList<>();
+                int resultado;
                 System.out.println("Ingrese el codigo de producto a consultar la cantidad vendida");
                 int codigo = entrada.nextInt();
-                if (detalleVentas.buscarCantidad(codigo).size()<=0){
+                if (detalleVentas.buscarCantidad(codigo)==0){
                     System.out.println("El codigo del producto no existe.");
                 } else {
                     resultado = detalleVentas.buscarCantidad(codigo);
-                    for (detalle_ventas r : resultado){
-                        System.out.println(r.toString()+"\n");
-                    }
+                    System.out.println(resultado);
                 }
             } else if (opcion == 0) {
                 x = 1;

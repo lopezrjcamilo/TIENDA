@@ -48,23 +48,24 @@ public class GestionDetalleVentas {
 
     //Cantidad de productos por cada venta
 
-    public ArrayList<detalle_ventas> buscarCantidad(int cantidad) {
+    public int buscarCantidad(int codigo) {
         datos.clear();
+        int suma=0;
         try {
             conec = con.Conecta();
-            String sql = "select * from detalle_ventas where codigo_producto=?";
+            //String sql = "select * from detalle_ventas where codigo_producto=?";
+            String sql = "SELECT SUM(cantidad_producto) FROM detalle_ventas where codigo_producto=?";
             //String sql = "select cantidad_producto, codigo_producto, codigo_venta from detalle_ventas where codigo_producto=?";
             //String sql = "select codigo_producto, codigo_venta from detalle_ventas where codigo_producto=?";
             ps = conec.prepareStatement(sql);
-            ps.setInt(1, cantidad);
+            ps.setInt(1, codigo);
             res = ps.executeQuery();
             while (res.next()){
-                detalle_ventas detv = new detalle_ventas(res.getInt(1),res.getInt(2),res.getInt(3),res.getInt(4),res.getDouble(5),res.getDouble(6),res.getDouble(7));
-                datos.add(detv);
+                suma=res.getInt(1);
             }
         }catch (SQLException ex){
             System.out.println("Error al consultar: "+ex);
         }
-        return datos;
+        return suma;
     }
 }
